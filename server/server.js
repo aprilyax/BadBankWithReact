@@ -1,66 +1,75 @@
-const express         = require('express');
-const app             = express();
-const cors            = require('cors');
-const mongoose        = require("mongoose");
-const dashboardRoutes = require("../routes/dashboard");
-const verifyToken     = require("../routes/validate-token");
-const authRoutes      = require("../routes/auth");
+const express = require("express");
+const cors = require("cors");
+const dbConfig = require("../server/config/db.config");
 
-// -------------  Mongodb connection -------------
+const app = express();
 
-var db = "mongodb://127.0.0.1:27017/myproject";
+var corsOptions = {
+  origin: "http://localhost:3000",
+};
 
-// connect to db
-mongoose.connect(
-    db,
-  {
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(express.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+const db = require("../server/model");
+const Role = db.role;
+
+db.mongoose
+  .connect("mongodb://127.0.0.1:27017/myproject", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  },
-  () => console.log("connected to db")
-);
+  })
+  .then(() => {
+    console.log("Successfully connect to MongoDB.");
+    initial();
+  })
+  .catch((err) => {
+    console.error("Connection error", err);
+    process.exit();
+  });
 
-// -----------------------------------------------
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to Bad Bank application." });
+});
 
-// enable Cross-Origin Resource Sharing
-app.use(cors());
+// routes
+require("../server/routes/auth.routes")(app);
+require("../server/routes/user.routes")(app);
 
-// for body parser
-app.use(express.json()); 
+// set port, listen for requests
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
 
-// -------------- Routes --------------
+function initial() {
+  Role.estimatedDocumentCount((err, count) => {
+    if (!err && count === 0) {
+      new Role({
+        name: "USER",
+      }).save((err) => {
+        if (err) {
+          console.log("error", err);
+        }
 
-app.use('/api/user', authRoutes);
+        console.log("added 'user' to roles collection");
+      });
 
-// this route is protected with token
-app.use("/api/dashboard", verifyToken, dashboardRoutes);
+      new Role({
+        name: "ADMIN",
+      }).save((err) => {
+        if (err) {
+          console.log("error", err);
+        }
 
-// ----------- Experimenting with routes --------
-
-/* const usersRouter = require("./routes/users");
-app.use("/users", usersRouter); */
-// -----------------------------------------------
-
-// serve static files from public directory
-app.use(express.static('public'));
-
-app.listen(3001, () => console.log("server is running on 3001"));
-
-module.exports = app;
-
-/* 
-The server communicates with mongodb as confirmed by testing api with postman.
-Express is serving static files to the client - i can see the bootstrap card.
-Client is NOT communicating with express.
-
-What is going on?
-
-Do I need to change the const url = `/account/create/${name}/${email}/${password}`; on createaccount.js??
-Do I need an app.get ??
-
-app.get('/', function (req, res) {
-  res.send('hello world')
-})
-
-Question
-*/
+        console.log("added 'admin' to roles collection");
+      });
+    }
+  });
+}
