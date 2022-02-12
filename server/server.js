@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-const dbConfig = require("../server/config/db.config");
+//const dbConfig = require("../server/config/db.config");
+var uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?retryWrites=true&w=majority'
 
 const app = express();
 
 var corsOptions = {
   origin: "http://localhost:3000",
-};
+}; 
 
 app.use(cors(corsOptions));
 
@@ -20,7 +21,7 @@ const db = require("../server/model");
 const Role = db.role;
 
 db.mongoose
-  .connect("mongodb://127.0.0.1:27017/myproject", {
+  .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
