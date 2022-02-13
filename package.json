@@ -2,7 +2,6 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,14 +14,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@redux-devtools/extension": "^3.2.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "history": "^5.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.7",
-    "redux-devtools": "^3.7.0",
-    "redux-devtools-extension": "^2.13.9"
+    "mongoose": "^6.1.7"
   }
 }
