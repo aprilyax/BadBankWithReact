@@ -38,9 +38,9 @@ db.mongoose
   });
 
 // simple route
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
   res.json({ message: "Welcome to Bad Bank application." });
-});
+}); */
 
 // routes
 // require("../server/routes/auth.routes")(app);
