@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "./actions/auth";
 // used for log out if token is expired
 import AuthVerify from "./common/AuthVerify";
-const history = require("history").createBrowserHistory()
+
 
 function App() {
   const dispatch = useDispatch();
