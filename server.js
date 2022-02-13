@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const PORT = process.env.PORT || 5000;
+// const PORT = process.env.PORT || 5000;
 //const dbConfig = require("../server/config/db.config");
 var uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?retryWrites=true&w=majority' 
 
@@ -56,9 +56,10 @@ app.get("*", (req, res) => {
 });
 
 // set port, listen for requests
-app.listen(PORT, () => {
+/* app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
-});
+}); */
+app.listen(process.env.PORT || 3000);
 
 function initial() {
   Role.estimatedDocumentCount((err, count) => {
