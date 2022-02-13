@@ -6,6 +6,7 @@ import { MDBDataTableV5 } from "mdbreact";
 import UserService from "../../services/user.service";
 import EventBus from "../../common/EventBus";
 
+
 function AllData() {
   const [usersList, setUsersList] = useState([]);
   const { user: currentUser } = useSelector((state) => state.auth);

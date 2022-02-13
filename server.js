@@ -1,13 +1,20 @@
 const express = require("express");
 const cors = require("cors");
+const PORT = process.env.PORT || 5000;
 //const dbConfig = require("../server/config/db.config");
-var uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?retryWrites=true&w=majority'
+var uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?retryWrites=true&w=majority' 
+
+// ... other imports 
+const path = require("path")
+
+// ... other app.use middleware 
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 const app = express();
 
-var corsOptions = {
+/* var corsOptions = {
   origin: "http://localhost:3000",
-}; 
+};  */
 
 app.use(cors(corsOptions));
 
@@ -43,8 +50,12 @@ app.get("/", (req, res) => {
 require("../server/routes/auth.routes")(app);
 require("../server/routes/user.routes")(app);
 
+// Reconfigure express to handle both API calls and serve react app
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
 // set port, listen for requests
-const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
