@@ -43,8 +43,10 @@ app.get("/", (req, res) => {
 });
 
 // routes
-require("../server/routes/auth.routes")(app);
-require("../server/routes/user.routes")(app);
+// require("../server/routes/auth.routes")(app);
+require("./routes/auth.routes")(app);
+// require("../server/routes/user.routes")(app);
+require("./routes/user.routes")(app);
 
 // ... other imports 
 const path = require('path')
