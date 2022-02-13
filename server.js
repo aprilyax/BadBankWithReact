@@ -3,7 +3,7 @@ const cors = require("cors");
 // const PORT = process.env.PORT || 5000;
 //const dbConfig = require("../server/config/db.config");
 // this needs to be moved to and environment variable
-var uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?retryWrites=true&w=majority' 
+const uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?retryWrites=true&w=majority' 
 
 const app = express();
 
