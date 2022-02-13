@@ -13,11 +13,12 @@ import Welcome from "./components/account/Welcome";
 
 import { Router, Route, Switch } from "react-router-dom";
 import { clearMessage } from "./actions/message";
-import { history } from "./helpers/history";
+//import { history } from "./helpers/history";
 import { useDispatch } from "react-redux";
 import { logout } from "./actions/auth";
 // used for log out if token is expired
 import AuthVerify from "./common/AuthVerify";
+const history = require("history").createBrowserHistory()
 
 function App() {
   const dispatch = useDispatch();
