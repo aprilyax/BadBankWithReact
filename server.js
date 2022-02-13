@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 5000;
 var uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?retryWrites=true&w=majority' 
 
 // ... other imports 
-const path = require("path")
+const path = require('path')
 
 // ... other app.use middleware 
 app.use(express.static(path.join(__dirname, "client", "build")))
