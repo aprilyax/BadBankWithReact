@@ -7,11 +7,11 @@ const uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?
 
 const app = express();
 
-var corsOptions = {
+/* var corsOptions = {
   origin: "http://localhost:3000",
 }; 
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); */
 
 // parse requests of content-type - application/json
 app.use(express.json());
