@@ -4,12 +4,6 @@ const PORT = process.env.PORT || 5000;
 //const dbConfig = require("../server/config/db.config");
 var uri = 'mongodb+srv://aprilyax:aprilyax@cluster0.dubn3.mongodb.net/aprildb?retryWrites=true&w=majority' 
 
-// ... other imports 
-const path = require('path')
-
-// ... other app.use middleware 
-app.use(express.static(path.join(__dirname, "client", "build")))
-
 const app = express();
 
 var corsOptions = {
@@ -49,6 +43,12 @@ app.get("/", (req, res) => {
 // routes
 require("../server/routes/auth.routes")(app);
 require("../server/routes/user.routes")(app);
+
+// ... other imports 
+const path = require('path')
+
+// ... other app.use middleware 
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 // Reconfigure express to handle both API calls and serve react app
 app.get("*", (req, res) => {
